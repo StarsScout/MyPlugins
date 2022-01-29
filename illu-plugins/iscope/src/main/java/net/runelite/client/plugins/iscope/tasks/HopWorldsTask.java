@@ -88,38 +88,46 @@ public class HopWorldsTask extends Task {
         displaySwitcherAttempts = 0;
     }
 
+    public void pressSpace() {
+        Runnable runnable =
+                () -> {
+                    KeyEvent keyPress = new KeyEvent(this.client.getCanvas(), KeyEvent.KEY_PRESSED, System.currentTimeMillis(), 0, KeyEvent.VK_SPACE, ' ');
+                    this.client.getCanvas().dispatchEvent(keyPress);
+                    KeyEvent keyRelease = new KeyEvent(this.client.getCanvas(), KeyEvent.KEY_RELEASED, System.currentTimeMillis(), 0, KeyEvent.VK_SPACE, ' ');
+                    this.client.getCanvas().dispatchEvent(keyRelease);
+                };
+        new Thread(runnable).start();
+    }
+
+    public void press2() {
+        Runnable runnable =
+                () -> {
+                    KeyEvent keyPress = new KeyEvent(this.client.getCanvas(), KeyEvent.KEY_PRESSED, System.currentTimeMillis(), 0, KeyEvent.VK_2, '2');
+                    this.client.getCanvas().dispatchEvent(keyPress);
+                    KeyEvent keyRelease = new KeyEvent(this.client.getCanvas(), KeyEvent.KEY_RELEASED, System.currentTimeMillis(), 0, KeyEvent.VK_2, '2');
+                    this.client.getCanvas().dispatchEvent(keyRelease);
+                };
+        new Thread(runnable).start();
+    }
 
     @Override
     public void onGameTick(GameTick event) {
         if (quickHopTargetWorld != null) {
+            client.hopToWorld(quickHopTargetWorld);
+
             Widget dialog = client.getWidget(229, 2);
-            if (dialog !=null) {
-                Runnable runnable =
-                        () -> {
-                            KeyEvent keyPress = new KeyEvent(this.client.getCanvas(), KeyEvent.KEY_PRESSED, System.currentTimeMillis(), 0, KeyEvent.VK_SPACE);
-                            this.client.getCanvas().dispatchEvent(keyPress);
-                            KeyEvent keyRelease = new KeyEvent(this.client.getCanvas(), KeyEvent.KEY_RELEASED, System.currentTimeMillis(), 0, KeyEvent.VK_SPACE);
-                            this.client.getCanvas().dispatchEvent(keyRelease);
-                            System.out.println("1");
+            Widget pvpDialog = client.getWidget(193, 2);
+            Widget targetDialog = client.getWidget(219, 1);
 
-                            try {
-                                Thread.sleep(1000);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-
-                            KeyEvent keyPress2 = new KeyEvent(this.client.getCanvas(), KeyEvent.KEY_PRESSED, System.currentTimeMillis(), 0, KeyEvent.VK_2);
-                            this.client.getCanvas().dispatchEvent(keyPress2);
-                            KeyEvent keyRelease2 = new KeyEvent(this.client.getCanvas(), KeyEvent.KEY_RELEASED, System.currentTimeMillis(), 0, KeyEvent.VK_2);
-                            this.client.getCanvas().dispatchEvent(keyRelease2);
-                            System.out.println("2");
-                        };
-                new Thread(runnable).start();
+            if (dialog != null) { //space on the normal dialog
+                pressSpace();
+            }
+            if (pvpDialog != null || targetDialog != null) {
+                press2();
             }
 
-
-            client.hopToWorld(quickHopTargetWorld);
-            quickHopTargetWorld = null;
+            if (dialog == null && pvpDialog == null && targetDialog == null)
+                quickHopTargetWorld = null;
         }
         System.out.println("hello from hop task..");
         if (clicked && tickClicked >0) {
