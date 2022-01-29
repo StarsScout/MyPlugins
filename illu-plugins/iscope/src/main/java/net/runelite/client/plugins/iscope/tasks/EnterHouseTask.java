@@ -34,7 +34,7 @@ public class EnterHouseTask extends Task {
     boolean clicked = false;
     int tickClicked = 0;
 
-    private static Set<Integer> portalIDs = Set.of(15478, 12344565);
+    private static Set<Integer> portalIDs = Set.of(15478, 15482);
 
     private GameObject portal= null;
 

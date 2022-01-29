@@ -39,7 +39,7 @@ public class ClickTelescopeTask extends Task {
 
     @Override
     public boolean validate() {
-        return (objectUtils.findNearestGameObjectWithin(client.getLocalPlayer().getLocalLocation(), 12, portalIDs) != null) && (client.getWidget(229, 2) == null);
+        return (objectUtils.findNearestGameObjectWithin(client.getLocalPlayer().getLocalLocation(), 30, portalIDs) != null) && (client.getWidget(229, 2) == null);
     }
 
     @Override
@@ -54,7 +54,7 @@ public class ClickTelescopeTask extends Task {
             tickClicked += 1;
             return;
         }
-        portal = objectUtils.findNearestGameObjectWithin(client.getLocalPlayer().getLocalLocation(), 12, portalIDs);
+        portal = objectUtils.findNearestGameObjectWithin(client.getLocalPlayer().getLocalLocation(), 30, portalIDs);
         if (portal != null)
         {
             tickClicked = 0;

@@ -118,9 +118,9 @@ public class iScopePlugin extends Plugin {
         tasks.clear();
         tasks.addAll(
                 injector.getInstance(EnterHouseTask.class),
-                injector.getInstance(ClickTelescopeTask.class),
+//                injector.getInstance(ClickTelescopeTask.class),
                 injector.getInstance(HopWorldsTask.class)
-//                injector.getInstance(EnterWorldSwitcherTask.class)
+//                injector.getInstance(MenuTask.class)
 //                injector.getInstance(MovingTask.class),
 //                injector.getInstance(CleanHerbTask.class),
 

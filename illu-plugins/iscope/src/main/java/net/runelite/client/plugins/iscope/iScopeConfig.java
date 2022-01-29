@@ -40,4 +40,6 @@ public interface iScopeConfig extends Config {
     default Button startButton() {
         return new Button();
     }
+
+    boolean allQuests();
 }

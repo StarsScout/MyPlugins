@@ -88,22 +88,6 @@ public class HopWorldsTask extends Task {
         displaySwitcherAttempts = 0;
     }
 
-    public void IpressKey(char key)
-    {
-        IkeyEvent(401, key);
-        IkeyEvent(402, key);
-        IkeyEvent(400, key);
-    }
-
-    private void IkeyEvent(int id, char key)
-    {
-        KeyEvent e = new KeyEvent(
-                client.getCanvas(), id, System.currentTimeMillis(),
-                0, KeyEvent.VK_UNDEFINED, key
-        );
-
-        client.getCanvas().dispatchEvent(e);
-    }
 
     @Override
     public void onGameTick(GameTick event) {
@@ -112,15 +96,28 @@ public class HopWorldsTask extends Task {
             if (dialog !=null) {
                 Runnable runnable =
                         () -> {
-                            KeyEvent keyPress = new KeyEvent(this.client.getCanvas(), KeyEvent.KEY_PRESSED, System.currentTimeMillis(), 0, KeyEvent.VK_SPACE, ' ');
+                            KeyEvent keyPress = new KeyEvent(this.client.getCanvas(), KeyEvent.KEY_PRESSED, System.currentTimeMillis(), 0, KeyEvent.VK_SPACE);
                             this.client.getCanvas().dispatchEvent(keyPress);
-                            KeyEvent keyRelease = new KeyEvent(this.client.getCanvas(), KeyEvent.KEY_RELEASED, System.currentTimeMillis(), 0, KeyEvent.VK_SPACE, ' ');
+                            KeyEvent keyRelease = new KeyEvent(this.client.getCanvas(), KeyEvent.KEY_RELEASED, System.currentTimeMillis(), 0, KeyEvent.VK_SPACE);
                             this.client.getCanvas().dispatchEvent(keyRelease);
+                            System.out.println("1");
 
+                            try {
+                                Thread.sleep(1000);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
 
+                            KeyEvent keyPress2 = new KeyEvent(this.client.getCanvas(), KeyEvent.KEY_PRESSED, System.currentTimeMillis(), 0, KeyEvent.VK_2);
+                            this.client.getCanvas().dispatchEvent(keyPress2);
+                            KeyEvent keyRelease2 = new KeyEvent(this.client.getCanvas(), KeyEvent.KEY_RELEASED, System.currentTimeMillis(), 0, KeyEvent.VK_2);
+                            this.client.getCanvas().dispatchEvent(keyRelease2);
+                            System.out.println("2");
                         };
                 new Thread(runnable).start();
             }
+
+
             client.hopToWorld(quickHopTargetWorld);
             quickHopTargetWorld = null;
         }
